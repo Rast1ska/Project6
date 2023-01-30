@@ -48,7 +48,18 @@ final class ViewController: UIViewController {
     
     private func setupNavigationController() {
         navigationController?.navigationBar.prefersLargeTitles = true
+        navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(addNewProduct))
+        navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: .trash, target: self, action: #selector(refreshResult))
     }
+    
+    @objc private func addNewProduct() {
+        
+    }
+    
+    @objc private func refreshResult() {
+        
+    }
+    
 }
 
 
@@ -62,6 +73,23 @@ extension UIViewController: UITableViewDataSource {
         let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath)
         cell.textLabel?.text = String(indexPath.row)
         return cell
+    }
+}
+
+// MARK: -UIAlertController
+extension UIViewController {
+    private func showAlertController(title: String, message: String) {
+        let alertController = UIAlertController(title: title, message: message, preferredStyle: .alert)
+        alertController.addTextField { textField in
+            textField.placeholder = "Write..."
+        }
+        
+        let actionOK = UIAlertAction(title: "Add", style: .default)
+        let actionCancel = UIAlertAction(title: "Cancel", style: .destructive)
+        
+        alertController.addAction(actionOK)
+        alertController.addAction(actionCancel)
+        present(alertController, animated: true)
     }
 }
 
